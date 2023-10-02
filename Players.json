@@ -4,31 +4,31 @@
        {
           "name":"Yoyo",
           "nephestID": "12779",
-          "race": "Zerg"
+          "race": "ZERG"
        },
      
        {
         "name":"Bojinkins",
         "nephestID": "2857273",
-        "race": "Terran"
+        "race": "TERRAN"
        },
 
        {
         "name":"Galeforce",
         "nephestID": "18288",
-        "race": "Protoss"
+        "race": "PROTOSS"
        },
 
        {
         "name":"TearDrop",
         "nephestID": "83104",
-        "race": "Terran"
+        "race": "TERRAN"
        },
        
        {
         "name":"Dyncommon",
         "nephestID": "7368598",
-        "race": "Zerg"
+        "race": "ZERG"
        }
     ]
  }
