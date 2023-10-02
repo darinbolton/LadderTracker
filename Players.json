@@ -1,0 +1,34 @@
+{
+    "players": [
+     
+       {
+          "name":"Yoyo",
+          "nephestID": "12779",
+          "race": "Zerg"
+       },
+     
+       {
+        "name":"Bojinkins",
+        "nephestID": "2857273",
+        "race": "Terran"
+       },
+
+       {
+        "name":"Galeforce",
+        "nephestID": "18288",
+        "race": "Protoss"
+       },
+
+       {
+        "name":"TearDrop",
+        "nephestID": "83104",
+        "race": "Terran"
+       },
+       
+       {
+        "name":"Dyncommon",
+        "nephestID": "7368598",
+        "race": "Zerg"
+       }
+    ]
+ }
