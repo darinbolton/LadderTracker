@@ -1,0 +1,20 @@
+@{playerCharacterId=18288; race=PROTOSS; games=74; ratingAvg=4642; ratingMax=4726; ratingLast=4668; leagueTypeLast=5; globalRankLast=4234}
+@{playerCharacterId=83104; race=TERRAN; games=1; ratingAvg=4654; ratingMax=4654; ratingLast=4654; leagueTypeLast=5; globalRankLast=4366}
+@{playerCharacterId=7368598; race=ZERG; games=1; ratingAvg=4635; ratingMax=4635; ratingLast=4635; leagueTypeLast=5; globalRankLast=4555}
+@{playerCharacterId=6590294; race=PROTOSS; games=10; ratingAvg=4477; ratingMax=4499; ratingLast=4491; leagueTypeLast=5; globalRankLast=6026}
+@{playerCharacterId=1503181; race=PROTOSS; games=1; ratingAvg=4338; ratingMax=4338; ratingLast=4338; leagueTypeLast=5; globalRankLast=8107}
+@{Name=; ratingLast=4693}
+@{Name=; ratingLast=4654}
+@{Name=; ratingLast=4635}
+@{Name=; ratingLast=4491}
+@{Name=; ratingLast=4338}
+@{Galeforce=; ratingLast=4693}
+@{TearDrop=; ratingLast=4654}
+@{Dyncommon=; ratingLast=4635}
+@{Trumpet=; ratingLast=4491}
+@{Quaven=; ratingLast=4338}
+@{Galeforce=; ratingLast=4693}
+@{TearDrop=; ratingLast=4654}
+@{Dyncommon=; ratingLast=4635}
+@{Trumpet=; ratingLast=4491}
+@{Quaven=; ratingLast=4338}
