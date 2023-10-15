@@ -25,9 +25,13 @@ foreach ($row in $playerIDs){
     $nameRequest = Invoke-WebRequest -Uri "https://sc2pulse.nephest.com/sc2/api/character/$NephestID"
     $name = $nameRequest.Content | ConvertFrom-Json
 
+    $gamesRequest = Invoke-WebRequest -Uri "https://sc2pulse.nephest.com/sc2/api/character/$NephestID/summary/1v1/7"
+    $games = $gamesRequest.Content | ConvertFrom-Json
+    $total = $games.Games | Measure-Object -Sum
+
     # Add the API response to the array
-    $apiResponses += $name.Name + ";" + $response1.ratingLast
+    $apiResponses += $name.Name + ";" + $response1.ratingLast + ";" + $total.Sum
     
 }
 
-$apiResponses| ConvertFrom-String -Delimiter ";" -PropertyNames Name, MMR | Select-Object -Property Name, MMR | Export-Csv -Path .\MMR\$date.csv
+$apiResponses| ConvertFrom-String -Delimiter ";" -PropertyNames Name, MMR, Games | Select-Object -Property Name, MMR, Games | Export-Csv -Path .\MMR\$date.csv
