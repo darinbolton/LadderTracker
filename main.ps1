@@ -2,7 +2,7 @@
 .SYNOPSIS
     Queries SC2Pulse for StarCraft II ladder statistics
 .NOTES
-    Track ladder games from members of FxB and periodicly post in Discord if a user has won or lost 4 games in a row
+    Creates a leaderboard for Formless Bearsloths to track MMR gains and game count
 .LINK
     https://github.com/sc2-pulse && https://github.com/darinbolton/LadderTracker
     https://sc2pulse.nephest.com/sc2/doc/swagger-ui/index.html?configUrl=/sc2/v3/api-docs/swagger-config#/character-controller/getCharacterSummary_1
@@ -24,13 +24,14 @@ foreach ($row in $playerIDs){
 
     $nameRequest = Invoke-WebRequest -Uri "https://sc2pulse.nephest.com/sc2/api/character/$NephestID"
     $name = $nameRequest.Content | ConvertFrom-Json
+    $nameTrimmed = $name.name.Split('#')[0] 
 
     $gamesRequest = Invoke-WebRequest -Uri "https://sc2pulse.nephest.com/sc2/api/character/$NephestID/summary/1v1/7"
     $games = $gamesRequest.Content | ConvertFrom-Json
     $total = $games.Games | Measure-Object -Sum
 
     # Add the API response to the array
-    $apiResponses += $name.Name + ";" + $response1.ratingLast + ";" + $total.Sum
+    $apiResponses += $nameTrimmed + ";" + $response1.ratingLast + ";" + $total.Sum
     
 }
 
