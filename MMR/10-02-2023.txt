@@ -18,3 +18,8 @@
 @{Dyncommon=; ratingLast=4635}
 @{Trumpet=; ratingLast=4491}
 @{Quaven=; ratingLast=4338}
+@{Galeforce=; ratingLast=4706}
+@{TearDrop=; ratingLast=4654}
+@{Dyncommon=; ratingLast=4635}
+@{Trumpet=; ratingLast=4491}
+@{Quaven=; ratingLast=4338}

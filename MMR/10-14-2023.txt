@@ -1,0 +1,5 @@
+@{Galeforce=; ratingLast=4502}
+@{TearDrop=; ratingLast=4816}
+@{Dyncommon=; ratingLast=4635}
+@{Trumpet=; ratingLast=4491}
+@{Quaven=; ratingLast=4338}
