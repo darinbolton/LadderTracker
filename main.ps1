@@ -78,5 +78,5 @@ for ($i = 0; $i -lt $current.Count; $i++) {
     $differences += $result
     }
 
-    # Display the differences
-    $differences | Select-Object Player,CurrentMMR,PreviousMMR,Change,GamesPlayed | ft -AutoSize
+# Display the differences
+$differences | Select-Object Player,CurrentMMR,PreviousMMR,Change,GamesPlayed | ft -AutoSize
