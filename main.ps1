@@ -84,5 +84,5 @@ for ($i = 0; $i -lt $current.Count; $i++) {
 
 # Display the differences
 $sortedDifferences = $differences | Select-Object Player,CurrentMMR,PreviousMMR,Change,GamesPlayed | Sort-Object -Property @{Expression = "Change"; Descending = $true}
-$largestGain = $sortedDifferences[0].Player + " " + $a[0].Change
-Write-Host $sortedDifferences[0].Player"gained the most MMR! They have moved up"$sortedDifferences[0].Change"MMR in the last 24 hours!"
+$sortedDifferences[0].Player + " " + $sortedDifferences[0].Change
+$sortedDifferences[0].Player + " gained the most MMR! They have moved up " + $sortedDifferences[0].Change + " MMR in the last 24 hours!" | Out-File -Encoding ascii .\MMR\winner_$date.txt
