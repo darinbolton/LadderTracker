@@ -52,20 +52,24 @@ $current = Import-Csv -Path .\MMR\$date.csv
 
 $differences = @()
 
-# Loop through the rows and compare the MMR values
+# Loop through the rows and compare the MMR and games played values
 for ($i = 0; $i -lt $current.Count; $i++) {
     $mmr1 = [int]$previous[$i].MMR
     $mmr2 = [int]$current[$i].MMR
     $games1 = [int]$previous[$i].Games
     $games2 = [int]$current[$i].Games
     
-
+    # Calculates MMR difference between the two CSVs
     $difference = $mmr2 - $mmr1
-    $differenceGames = $games1 - $games2
+
+    # Calculates games played in the last day
+    $differenceGames = $games2 - $games1
+    # If games played today is less than games played yesterday, value will be negative. If statement is used to zero out the negative and reduce confusion. 
     if ($differenceGames -lt 0){
         $differenceGames = 0
     }
 
+    # Build new array to store values from both CSVs
     $result = New-Object PSObject -Property @{
         Player = $previous[$i].Name
         CurrentMMR = $mmr2
@@ -79,4 +83,6 @@ for ($i = 0; $i -lt $current.Count; $i++) {
     }
 
 # Display the differences
-$differences | Select-Object Player,CurrentMMR,PreviousMMR,Change,GamesPlayed | ft -AutoSize
+$sortedDifferences = $differences | Select-Object Player,CurrentMMR,PreviousMMR,Change,GamesPlayed | Sort-Object -Property @{Expression = "Change"; Descending = $true}
+$largestGain = $sortedDifferences[0].Player + " " + $a[0].Change
+Write-Host $sortedDifferences[0].Player"gained the most MMR! They have moved up"$sortedDifferences[0].Change"MMR in the last 24 hours!"
