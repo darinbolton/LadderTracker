@@ -8,7 +8,7 @@ $day = Get-Date -Format "dddd MM/dd/yyyy HH:mm"
 $winnerMessage = Get-Content .\MMR\winner_$date.txt
 $leaderboard = Import-Csv -Path .\MMR\differences_$date.csv
  
-$webhookURL = Get-Content .\webhookURL.txt
+$webhookURL = Get-Content ..\webhookURL.txt
 
 # Create embed array
 [System.Collections.ArrayList]$embedArray = @()
