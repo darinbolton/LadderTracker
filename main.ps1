@@ -86,8 +86,15 @@ for ($i = 0; $i -lt $current.Count; $i++) {
 
 # Display the differences
 $sortedDifferences = $differences | Select-Object Player,Race,CurrentMMR,PreviousMMR,Change,GamesPlayed | Sort-Object -Property @{Expression = "Change"; Descending = $true}
-$sortedDifferences | Export-Csv .\MMR\differences_$date.csv
 
+$playedOnly= @()
+
+foreach ($player in $sortedDifferences) {
+    if ($player.GamesPlayed -ne 0){
+        $playedOnly += $player
+    }
+}
+$playedOnly | Export-Csv .\MMR\differences_$date.csv
 
 # $sortedDifferences[0].Player + " " + $sortedDifferences[0].Change
-'`' + $sortedDifferences[0].Player + '`' + " gained the most MMR today! They have moved up " + $sortedDifferences[0].Change + " MMR in the last 24 hours!" | Out-File -Encoding ascii .\MMR\winner_$date.txt
+'`' + $playedOnly[0].Player + '`' + " gained the most MMR today! They have moved up " + $playedOnly[0].Change + " MMR in the last 24 hours!" | Out-File -Encoding ascii .\MMR\winner_$date.txt
