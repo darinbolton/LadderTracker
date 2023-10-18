@@ -35,7 +35,7 @@ foreach ($row in $playerIDs){
     $nameTrimmed = $name.name.Split('#')[0] 
 
     # Returns total number of games played in the last 7 days. Each race returns a different value, so we'll add them and let $total be the combined number. 
-    $gamesRequest = Invoke-WebRequest -Uri "https://sc2pulse.nephest.com/sc2/api/character/$NephestID/summary/1v1/7"
+    $gamesRequest = Invoke-WebRequest -Uri "https://sc2pulse.nephest.com/sc2/api/character/$NephestID/summary/1v1/1"
     $games = $gamesRequest.Content | ConvertFrom-Json
     $total = $games.Games | Measure-Object -Sum
 
@@ -64,10 +64,7 @@ for ($i = 0; $i -lt $current.Count; $i++) {
 
     # Calculates games played in the last day
     $differenceGames = $games2 - $games1
-    # If games played today is less than games played yesterday, value will be negative. If statement is used to zero out the negative and reduce confusion. 
-    if ($differenceGames -lt 0){
-        $differenceGames = 0
-    }
+    
 
     # Build new array to store values from both CSVs
     $result = New-Object PSObject -Property @{
@@ -75,7 +72,7 @@ for ($i = 0; $i -lt $current.Count; $i++) {
         CurrentMMR = $mmr2
         PreviousMMR = $mmr1
         Change = $difference
-        GamesPlayed = $differenceGames
+        GamesPlayed = $games2
     }
 
     # Add the result to the differences array
@@ -95,4 +92,4 @@ foreach ($player in $sortedDifferences) {
     }
 }
 $playedOnly | Export-Csv .\MMR\differences_$date.csv
-$sortedDifferences[0].Player + " gained the most MMR! They have moved up " + $sortedDifferences[0].Change + " MMR today!" | Out-File -Encoding ascii .\MMR\winner_$date.txt
+'`' + $playedOnly[0].Player + '`' + " gained the most MMR! They have moved up " + $playedOnly[0].Change + " MMR today!" | Out-File -Encoding ascii .\MMR\winner_$date.txt
