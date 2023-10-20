@@ -81,7 +81,7 @@ for ($i = 0; $i -lt $current.Count; $i++) {
     }
 
 # Display the differences
-$sortedDifferences = $differences | Select-Object Player,Race,CurrentMMR,PreviousMMR,Change,GamesPlayed | Sort-Object -Property @{Expression = "Change"; Descending = $true}
+$sortedDifferences = $differences | Select-Object Player,Race,CurrentMMR,PreviousMMR,Change | Sort-Object -Property @{Expression = "Change"; Descending = $true}
 
 $playedOnly= @()
 
