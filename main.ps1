@@ -36,9 +36,12 @@ foreach ($row in $playerIDs){
     $nameTrimmed = $name.name.Split('#')[0] 
 
     # Returns total number of games played in the last 7 days. Each race returns a different value, so we'll add them and let $total be the combined number. 
-   
+    $gamesRequest = Invoke-WebRequest -Uri "https://sc2pulse.nephest.com/sc2/api/character/$NephestID/summary/1v1/7"
+    $games = $gamesRequest.Content | ConvertFrom-Json
+    $total = $games.Games | Measure-Object -Sum
+
     # Add the API response to the array
-    $apiResponses += $nameTrimmed + ";" + $mmr.ratingLast + ";" + $gamesPlayed
+    $apiResponses += $nameTrimmed + ";" + $race + ";" + $mmr.ratingLast + ";" + $total.Sum
     
 }
 # Export API response to a .csv after converting results from a string
@@ -70,7 +73,7 @@ for ($i = 0; $i -lt $current.Count; $i++) {
         CurrentMMR = $mmr2
         PreviousMMR = $mmr1
         Change = $difference
-        GamesPlayed = $gamesPlayed
+        GamesPlayed = $differenceGames        
     }
 
     # Add the result to the differences array
@@ -78,9 +81,7 @@ for ($i = 0; $i -lt $current.Count; $i++) {
     }
 
 # Display the differences
-$sortedDifferences = $differences | Select-Object Player,CurrentMMR,PreviousMMR,Change | Sort-Object -Property @{Expression = "Change"; Descending = $true}
-#$sortedDifferences[0].Player + " " + $sortedDifferences[0].Change
-# $sortedDifferences | Export-Csv .\MMR\differences_$date.csv
+$sortedDifferences = $differences | Select-Object Player,Race,CurrentMMR,PreviousMMR,Change,GamesPlayed | Sort-Object -Property @{Expression = "Change"; Descending = $true}
 
 $playedOnly= @()
 
