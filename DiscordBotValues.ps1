@@ -27,7 +27,7 @@ $thumbnailObject = [PSCustomObject]@{
 }
 
 $footerObject = [PSCustomObject]@{
-    text = "This bot is maintained by Galeforce. Note: Only main race MMR is tracked. Games Played tracks all 4 races combined, which results in the value going up, but MMR may not change."
+    text = "This bot is maintained by Galeforce. Note: Only main race MMR is tracked. GamesPlayed is tracked from 00:01 to 23:59 each day."
 }
 
 # Create embed object, also adding thumbnail

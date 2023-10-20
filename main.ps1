@@ -27,8 +27,8 @@ foreach ($row in $playerIDs){
     # Gets each player's current MMR and stores it in $mmr.ratingLast. Goes back 7 days, but can be adjusted by changing the number in front of $race.
     $mmrRequest = Invoke-WebRequest -Uri "https://sc2pulse.nephest.com/sc2/api/character/$NephestID/summary/1v1/7/$race"
     $mmr = $mmrRequest.Content | ConvertFrom-Json
-    $raceMMR = $mmr.race
-
+    $gamesPlayed = $mmr.games
+    
     # MMR request doesn't return a name, so we have to query for name based on NephestID. 
     # Battletag is returned, so we'll trim everything in front of # and just use the name.
     $nameRequest = Invoke-WebRequest -Uri "https://sc2pulse.nephest.com/sc2/api/character/$NephestID"
@@ -36,16 +36,13 @@ foreach ($row in $playerIDs){
     $nameTrimmed = $name.name.Split('#')[0] 
 
     # Returns total number of games played in the last 7 days. Each race returns a different value, so we'll add them and let $total be the combined number. 
-    $gamesRequest = Invoke-WebRequest -Uri "https://sc2pulse.nephest.com/sc2/api/character/$NephestID/summary/1v1/7"
-    $games = $gamesRequest.Content | ConvertFrom-Json
-    $total = $games.Games | Measure-Object -Sum
-
+   
     # Add the API response to the array
-    $apiResponses += $nameTrimmed + ";" + $race + ";" + $mmr.ratingLast + ";" + $total.Sum
+    $apiResponses += $nameTrimmed + ";" + $mmr.ratingLast + ";" + $gamesPlayed
     
 }
 # Export API response to a .csv after converting results from a string
-$apiResponses| ConvertFrom-String -Delimiter ";" -PropertyNames Name, Race, MMR, Games | Select-Object -Property Name, Race, MMR, Games | Export-Csv -Path .\MMR\$date.csv
+$apiResponses| ConvertFrom-String -Delimiter ";" -PropertyNames Name, MMR, Games | Select-Object -Property Name, MMR, Games | Export-Csv -Path .\MMR\$date.csv
 
 # Import the CSV files
 $previous = Import-Csv -Path .\MMR\$previousDay.csv
@@ -65,19 +62,15 @@ for ($i = 0; $i -lt $current.Count; $i++) {
 
     # Calculates games played in the last day
     $differenceGames = $games2 - $games1
-    # If games played today is less than games played yesterday, value will be negative. If statement is used to zero out the negative and reduce confusion. 
-    if ($differenceGames -lt 0){
-        $differenceGames = 0
-    }
+    
 
     # Build new array to store values from both CSVs
     $result = New-Object PSObject -Property @{
         Player = $previous[$i].Name
-        Race = $current[$i].Race
         CurrentMMR = $mmr2
         PreviousMMR = $mmr1
         Change = $difference
-        GamesPlayed = $differenceGames        
+        GamesPlayed = $gamesPlayed
     }
 
     # Add the result to the differences array
@@ -85,16 +78,16 @@ for ($i = 0; $i -lt $current.Count; $i++) {
     }
 
 # Display the differences
-$sortedDifferences = $differences | Select-Object Player,Race,CurrentMMR,PreviousMMR,Change,GamesPlayed | Sort-Object -Property @{Expression = "Change"; Descending = $true}
+$sortedDifferences = $differences | Select-Object Player,CurrentMMR,PreviousMMR,Change | Sort-Object -Property @{Expression = "Change"; Descending = $true}
+#$sortedDifferences[0].Player + " " + $sortedDifferences[0].Change
+# $sortedDifferences | Export-Csv .\MMR\differences_$date.csv
 
 $playedOnly= @()
 
 foreach ($player in $sortedDifferences) {
-    if ($player.GamesPlayed -ne 0){
+    if ($player.Change -ne 0){
         $playedOnly += $player
     }
 }
 $playedOnly | Export-Csv .\MMR\differences_$date.csv
-
-# $sortedDifferences[0].Player + " " + $sortedDifferences[0].Change
-'`' + $playedOnly[0].Player + '`' + " gained the most MMR today! They have moved up " + $playedOnly[0].Change + " MMR in the last 24 hours!" | Out-File -Encoding ascii .\MMR\winner_$date.txt
+'`' + $playedOnly[0].Player + '`' + " gained the most MMR! They have moved up " + $playedOnly[0].Change + " MMR today!" | Out-File -Encoding ascii .\MMR\winner_$date.txt
