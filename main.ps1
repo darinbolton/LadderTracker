@@ -41,11 +41,11 @@ foreach ($row in $playerIDs){
     $total = $games.Games | Measure-Object -Sum
 
     # Add the API response to the array
-    $apiResponses += $nameTrimmed + ";" + $race + ";" + $mmr.ratingLast + ";" + $total.Sum
+    $apiResponses += $nameTrimmed + ";" + $row.Race + ";" + $mmr.ratingLast + ";" + $total.Sum
     
 }
 # Export API response to a .csv after converting results from a string
-$apiResponses| ConvertFrom-String -Delimiter ";" -PropertyNames Name, MMR, Games | Select-Object -Property Name, MMR, Games | Export-Csv -Path .\MMR\$date.csv
+$apiResponses| ConvertFrom-String -Delimiter ";" -PropertyNames Name, Race, MMR, Games | Select-Object -Property Name, Race, MMR, Games | Export-Csv -Path .\MMR\$date.csv
 
 # Import the CSV files
 $previous = Import-Csv -Path .\MMR\$previousDay.csv
@@ -73,7 +73,9 @@ for ($i = 0; $i -lt $current.Count; $i++) {
         CurrentMMR = $mmr2
         PreviousMMR = $mmr1
         Change = $difference
-        GamesPlayed = $differenceGames        
+        GamesPlayed = $differenceGames
+        Race = $current[$i].Race
+              
     }
 
     # Add the result to the differences array
@@ -81,7 +83,9 @@ for ($i = 0; $i -lt $current.Count; $i++) {
     }
 
 # Display the differences
-$sortedDifferences = $differences | Select-Object Player,Race,CurrentMMR,PreviousMMR,Change | Sort-Object -Property @{Expression = "Change"; Descending = $true}
+$sortedDifferences = $differences | Select-Object Player,CurrentMMR,PreviousMMR,Change,Race | Sort-Object -Property @{Expression = "Change"; Descending = $true}
+#$sortedDifferences[0].Player + " " + $sortedDifferences[0].Change
+# $sortedDifferences | Export-Csv .\MMR\differences_$date.csv
 
 $playedOnly= @()
 
@@ -91,4 +95,23 @@ foreach ($player in $sortedDifferences) {
     }
 }
 $playedOnly | Export-Csv .\MMR\differences_$date.csv
-'`' + $playedOnly[0].Player + '`' + " gained the most MMR! They have moved up " + $playedOnly[0].Change + " MMR today!" | Out-File -Encoding ascii .\MMR\winner_$date.txt
+
+if ($playedOnly[0].Change -gt '50'){
+    '`' + $playedOnly[0].Player + '`' + " had a successful ladder session, moving up " + $playedOnly[0].Change + " MMR today!" | Out-File -Encoding ascii .\MMR\winner_$date.txt
+}
+if ($playedOnly[0].Change -gt '100'){
+    '`' + $playedOnly[0].Player + '`' + " gained the most MMR! They have moved up " + $playedOnly[0].Change + " MMR today!" | Out-File -Encoding ascii .\MMR\winner_$date.txt
+}
+if ($playedOnly[0].Change -gt '150'){
+    '`' + $playedOnly[0].Player + '`' + " gained the most MMR! They have moved up " + $playedOnly[0].Change + " MMR today!" | Out-File -Encoding ascii .\MMR\winner_$date.txt
+}
+if ($playedOnly[0].Change -gt '200'){
+    '`' + $playedOnly[0].Player + '`' + " KILLING SPREE! They have feasted on the ladder today, gaining " + $playedOnly[0].Change + " MMR!" | Out-File -Encoding ascii .\MMR\winner_$date.txt
+}
+if ($playedOnly[0].Change -gt '250'){
+    '`' + $playedOnly[0].Player + '`' + " ...Have you been smurfing? They've gained " + $playedOnly[0].Change + " MMR today, an absolutely staggering amount!" | Out-File -Encoding ascii .\MMR\winner_$date.txt
+}
+elseif ($playedOnly[0].Change -lt '50') {
+    '`' + $playedOnly[0].Player + '`' + " gained the most MMR! They have moved up " + $playedOnly[0].Change + " MMR today!" | Out-File -Encoding ascii .\MMR\winner_$date.txt
+}
+

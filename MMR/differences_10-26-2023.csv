@@ -1,0 +1,6 @@
+#TYPE Selected.System.Management.Automation.PSCustomObject
+"Player","CurrentMMR","PreviousMMR","Change","Race"
+"Galeforce","4417","4400","17","PROTOSS"
+"GeminiDTX","3030","3036","-6","PROTOSS"
+"Sawblade","3895","3911","-16","TERRAN"
+"YoyO","5033","5076","-43","ZERG"

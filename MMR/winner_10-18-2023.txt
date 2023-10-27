@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-`Kirt` gained the most MMR today! They have moved up 29 MMR since yesterday!
-=======
-`Kirt` gained the most MMR! They have moved up 29 MMR today!
->>>>>>> abfe87d4a3d9789684dfe436d1f09c903b2fcd7b
+`GeminiDTX` gained the most MMR! They have moved up 60 MMR today!

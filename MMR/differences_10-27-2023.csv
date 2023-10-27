@@ -1,0 +1,4 @@
+#TYPE Selected.System.Management.Automation.PSCustomObject
+"Player","CurrentMMR","PreviousMMR","Change","Race"
+"TEarDroP","4627","4579","48","TERRAN"
+"Unknown","4502","4558","-56","TERRAN"
