@@ -6,6 +6,7 @@ $day = Get-Date -Format "dddd MM/dd/yyyy HH:mm"
 
 
 $winnerMessage = Get-Content .\MMR\winner_$date.txt
+$loserMessage = Get-Content .\MMR\bigLoser_$date.txt
 $leaderboard = Import-Csv -Path .\MMR\differences_$date.csv
  
 $webhookURL = Get-Content ..\webhookURL.txt
@@ -15,7 +16,7 @@ $webhookURL = Get-Content ..\webhookURL.txt
 
 # Store embed values
 $title       = "Ladder Leaderboard for $day"
-$description = $winnerMessage
+$description = $winnerMessage + " " + $loserMessage
 
 # Format the CSV data as a table in a code block
 $csvDescription = '`' + ($leaderboard | Format-Table | Out-String)+'`'
@@ -27,7 +28,7 @@ $thumbnailObject = [PSCustomObject]@{
 }
 
 $footerObject = [PSCustomObject]@{
-    text = "This bot is maintained by Galeforce. Note: Only main race MMR is tracked. Games Played tracks all 4 races combined from the last 24 hours, which results in the value going up, but MMR may not change."
+    text = "This bot is maintained by Galeforce."
 }
 
 # Create embed object, also adding thumbnail
