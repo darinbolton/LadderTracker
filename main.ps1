@@ -119,7 +119,7 @@ elseif ($playedOnly[0].Change -lt '25') {
 $bigLoser = $playedOnly | Select-Object -Last 1 
 
 if ($bigLoser.Change -lt '0' -and $bigLoser.Change -lt '-25'){
-    '`' + $bigLoser + '`' + " played a few games that didn't go their way, moving down " + $bigLoser.Change + " MMR today." | Out-File -Encoding ascii .\MMR\bigloser_$date.txt
+    '`' + $bigLoser.Player + '`' + " played a few games that didn't go their way, moving down " + $bigLoser.Change + " MMR today." | Out-File -Encoding ascii .\MMR\bigloser_$date.txt
 }
 if ($bigLoser.Change -lt '-50' -and $bigLoser.Change -lt '-26'){
     '`' + $bigLoser.Player + '`' + " probably forgot their coffee today, causing them to move down " + $bigLoser.Change + " MMR today." | Out-File -Encoding ascii .\MMR\bigloser_$date.txt

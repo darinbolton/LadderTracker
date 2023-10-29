@@ -1,0 +1,9 @@
+#TYPE Selected.System.Management.Automation.PSCustomObject
+"Player","CurrentMMR","PreviousMMR","Change","Race"
+"Galeforce","4484","4417","67","PROTOSS"
+"Sawblade","3959","3895","64","TERRAN"
+"UnKleToBy","5068","5014","54","PROTOSS"
+"Unknown","4504","4478","26","TERRAN"
+"Quaven","4335","4338","-3","PROTOSS"
+"YoyO","5025","5033","-8","ZERG"
+"TEarDroP","4592","4627","-35","TERRAN"

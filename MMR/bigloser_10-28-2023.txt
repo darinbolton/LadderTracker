@@ -1,0 +1,1 @@
+`@{Player=TEarDroP; CurrentMMR=4592; PreviousMMR=4627; Change=-35; Race=TERRAN}` played a few games that didn't go their way, moving down -35 MMR today.
