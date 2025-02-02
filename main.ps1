@@ -207,7 +207,7 @@ if ($playedOnly[0].Change -gt '100'){
     '`' + $playedOnly[0].Name + '`' + " learned a new build, they've gained " + '`' + $playedOnly[0].Change + '`' + " MMR today!" | Out-File -Encoding ascii .\MMR\DailyWinner\winner_$date.txt    
 }
 if ($playedOnly[0].Change -gt '120'){
-    '`' + $playedOnly[0].Name + '`' + " is gaining mo-fucking-mentum! They have moved up " + '`' + $playedOnly[0].Change + '`' + " MMR!" | Out-File -Encoding ascii .\MMR\DailyWinner\winner_$date.txt
+    '`' + $playedOnly[0].Name + '`' + " is gaining momentum! They have moved up " + '`' + $playedOnly[0].Change + '`' + " MMR!" | Out-File -Encoding ascii .\MMR\DailyWinner\winner_$date.txt
 }
 if ($playedOnly[0].Change -gt '175'){
     '`' + $playedOnly[0].Name + '`' + " ...Have you been smurfing? They've gained " + '`' + $playedOnly[0].Change + '`' + " MMR today, an absolutely staggering amount!" | Out-File -Encoding ascii .\MMR\DailyWinner\winner_$date.txt
